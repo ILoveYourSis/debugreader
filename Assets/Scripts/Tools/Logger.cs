@@ -62,11 +62,7 @@ public class Logger : MonoBehaviour
     }
     public static void Log(string tag, string info)
     {
-#if UNITY_EDITOR
-        Debug.Log(formatLogString("LOG", tag, info));
-#else
         GetInstance().log(tag, info);
-#endif
     }
 
     public static void Warn(string info)
@@ -75,11 +71,7 @@ public class Logger : MonoBehaviour
     }
     public static void Warn(string tag, string info)
     {
-#if UNITY_EDITOR
-        Debug.LogWarning(formatLogString("WARN", tag, info));
-#else
         GetInstance().warn(tag, info);
-#endif
     }
 
     public static void Error(string info)
@@ -88,11 +80,7 @@ public class Logger : MonoBehaviour
     }
     public static void Error(string tag, string info)
     {
-#if UNITY_EDITOR
-        Debug.LogError(formatLogString("ERROR", tag, info));
-#else
         GetInstance().error(tag, info);
-#endif
     }
 
 #if UNITY_EDITOR

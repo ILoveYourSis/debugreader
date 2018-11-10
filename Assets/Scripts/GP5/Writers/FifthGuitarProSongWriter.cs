@@ -64,10 +64,10 @@ public class FifthGuitarProSongWriter : GuitarProSongWriter
         WriteStringByteSizeOfInteger("");
         WriteStringByteSizeOfInteger(song.Artist);
         WriteStringByteSizeOfInteger(song.Album);
-        WriteStringByteSizeOfInteger(song.Author);
+        WriteStringByteSizeOfInteger(song.LyricAuthor);
         WriteStringByteSizeOfInteger("");
         WriteStringByteSizeOfInteger(song.Copyright);
-        WriteStringByteSizeOfInteger(song.Writer);
+        WriteStringByteSizeOfInteger(song.Tab);
         WriteStringByteSizeOfInteger("");
         WriteInt(comments.Count);
         for (int i = 0; i < comments.Count; i++)

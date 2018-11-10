@@ -13,25 +13,32 @@ public class GuitarProSongReader
         _br.ReadBytes(count);
     }
 
-    protected int readInt()
+    protected int readInt() { return _br.ReadInt32(); }
+
+    protected byte readByte() { return _br.ReadByte(); } 
+
+    protected byte readyUnsignedByte() {return _br.ReadByte(); }
+    protected string readStringByte(int size)
     {
-        return _br.ReadInt32();
+        return readString(size, readyUnsignedByte());
     }
 
-    protected void readStringByte(out string s, out int size)
+    protected string readString(int size, byte len)
     {
-        size = _br.ReadByte();
+        byte[] bytes  = _br.ReadBytes(size > 0? size: len);
+        return Encoding.UTF8.GetString(bytes);
+    }
+
+    protected string readStringInteger()
+    {
+        int size = readInt();
         byte[] bytes = _br.ReadBytes(size);
-        s = Encoding.UTF8.GetString(bytes);
+        return Encoding.UTF8.GetString(bytes);
     }
 
     protected string readStringByteSizeOfInteger()
     {
-        int length = readInt() - 1;//never use this value
-        string str;
-        int size;
-        readStringByte(out str, out size);
-        return str;
+        return readStringByte(readInt() - 1);
     }
 
     public void debugTest()

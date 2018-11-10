@@ -12,6 +12,7 @@
         public static short DefaultPhaser = 0;
         public static short DefaultTremolo = 0;
 
+        public int Program;
         public short ChannelCode { get; set; }
         public short EffectChannel { get; set; }
         public short Instrument { get; set; }
@@ -21,6 +22,8 @@
         public short Reverb { get; set; }
         public short Phaser { get; set; }
         public short Tremolo { get; set; }
+
+        public string bank;
 
         public Channel()
         {
