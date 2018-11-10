@@ -11,13 +11,13 @@ public class Logger : MonoBehaviour
     [SerializeField] List<string> tags;
     [SerializeField] List<bool> enables;
 
-    Dictionary<string ,bool> _tag2Enable;
+    Dictionary<string, bool> _tag2Enable;
     private void Awake()
     {
         _tag2Enable = new Dictionary<string, bool>();
-        for(int i = 0; i < tags.Count; ++i)
+        for (int i = 0; i < tags.Count; ++i)
         {
-            if(_tag2Enable.ContainsKey(tags[i]))
+            if (_tag2Enable.ContainsKey(tags[i]))
             {
                 Debug.LogError("[U] Ignore Duplicate Tag:" + tags[i]);
                 continue;
@@ -28,7 +28,7 @@ public class Logger : MonoBehaviour
 
     void log(string tag, string info)
     {
-        if(_tag2Enable.ContainsKey(tag) && _tag2Enable[tag])
+        if (_tag2Enable.ContainsKey(tag) && _tag2Enable[tag])
             Debug.Log(formatLogString("LOG", tag, info));
     }
 
@@ -44,7 +44,7 @@ public class Logger : MonoBehaviour
             Debug.LogError(formatLogString("ERROR", tag, info));
     }
 
-    string formatLogString(string logType, string tag, string info)
+    static string formatLogString(string logType, string tag, string info)
     {
         return string.Format("{0} {1} [{2}]{3}", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), logType, tag.ToUpper(), info);
     }
@@ -52,7 +52,7 @@ public class Logger : MonoBehaviour
     static Logger instance;
     static Logger GetInstance()
     {
-        if(instance == null) instance = (Instantiate(Resources.Load("Logger")) as GameObject).GetComponent<Logger>();
+        if (instance == null) instance = (Instantiate(Resources.Load("Logger")) as GameObject).GetComponent<Logger>();
         return instance;
     }
 
@@ -62,16 +62,24 @@ public class Logger : MonoBehaviour
     }
     public static void Log(string tag, string info)
     {
+#if UNITY_EDITOR
+        Debug.Log(formatLogString("LOG", tag, info));
+#else
         GetInstance().log(tag, info);
+#endif
     }
-	
+
     public static void Warn(string info)
     {
         Warn("default", info);
     }
     public static void Warn(string tag, string info)
     {
+#if UNITY_EDITOR
+        Debug.LogWarning(formatLogString("WARN", tag, info));
+#else
         GetInstance().warn(tag, info);
+#endif
     }
 
     public static void Error(string info)
@@ -80,7 +88,11 @@ public class Logger : MonoBehaviour
     }
     public static void Error(string tag, string info)
     {
+#if UNITY_EDITOR
+        Debug.LogError(formatLogString("ERROR", tag, info));
+#else
         GetInstance().error(tag, info);
+#endif
     }
 
 #if UNITY_EDITOR

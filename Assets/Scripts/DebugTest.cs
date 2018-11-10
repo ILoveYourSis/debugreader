@@ -21,7 +21,7 @@ public class DebugTest : MonoBehaviour {
     [UnityEditor.MenuItem("Tools/readgp5")]
     static void readgp5()
     {
-        const string path = "I:\\unity\\mira\\debug\\Assets\\ALL OF THEM WITCHES.gp5";
+        string path = Application.dataPath + "/ALL OF THEM WITCHES.gp5";
         GP5Reader reader = new GP5Reader(path);
     }
 

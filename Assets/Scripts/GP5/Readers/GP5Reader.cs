@@ -18,30 +18,30 @@ public class GP5Reader : GuitarProSongReader
     public void readSong()
     {
         _song = new Song();
+        SkipBytes(1);
         SkipBytes(30);//gp5 version
         readInfo();
+
+        _br.Close();
     }
 
     public void readInfo()
     {
         _song.Name = readStringByteSizeOfInteger();
-        SkipBytes(1);
+        SkipBytes(5);
         _song.Artist = readStringByteSizeOfInteger();
         _song.Album = readStringByteSizeOfInteger();
         _song.Author = readStringByteSizeOfInteger();
-        SkipBytes(1);
+        SkipBytes(5);
         _song.Copyright = readStringByteSizeOfInteger();
         _song.Writer = readStringByteSizeOfInteger();
-        SkipBytes(1);
+        SkipBytes(5);
         int commentsCount = readInt();
         string[] comments = new string[commentsCount];
         for(int i = 0; i < commentsCount; ++i)
             comments[i] = readStringByteSizeOfInteger();
         _song.Comments = toComments(comments);
-
-        Logger.Log("gp5", string.Format(@"Name:{0} Artist:{1} Album:{2}
- Author:{3} cpRight:{4} writer:{5} comments:{6}", _song.Name, _song.Artist, _song.Album,
- _song.Author, _song.Copyright, _song.Writer, _song.Comments));
+        Logger.Log("copyright:" + _song.Copyright);
 
     }
 
