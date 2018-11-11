@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using SimpleJSON;
 
 public class DebugTest : MonoBehaviour {
 
-    AndroidJavaObject jo;
 	// Use this for initialization
 	void Start () {
 		//jo = new AndroidJavaObject("com.example.mylibrary.JarDebug");
@@ -20,8 +20,14 @@ public class DebugTest : MonoBehaviour {
 
     static void readgp5()
     {
-        string path = Application.dataPath + "/../ALL OF THEM WITCHES.bin";
-        GP5Reader reader = new GP5Reader(path);
+        string path = Application.dataPath + "/../output.json";
+        string text = File.ReadAllText(path);
+        JSONNode jo = JSON.Parse(text);
+        foreach(string k in jo.Keys)
+        {
+            Logger.Log("gp5", k);
+        }
+        //GP5Reader reader = new GP5Reader(path);
     }
 
     //static void test()

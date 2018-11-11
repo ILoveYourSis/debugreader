@@ -731,11 +731,11 @@ module.exports = buf => {
   };
 };
 
- if (!module.parent) {
-   module.exports(require('fs').readFileSync('I:/unity/debugreader/ALL OF THEM WITCHES.bin'));
- }
+ // if (!module.parent) {
+ //   module.exports(require('fs').readFileSync('I:/unity/debugreader/ALL OF THEM WITCHES.bin'));
+ // }
 
 
-// if (!module.parent) {
-//   console.log(JSON.stringify(module.exports(require('fs').readFileSync('I:/unity/debugreader/ALL OF THEM WITCHES.bin')), null, '  '));
-// }
+if (!module.parent) {
+  console.log(JSON.stringify(module.exports(require('fs').readFileSync('I:/unity/debugreader/ALL OF THEM WITCHES.bin')), null, '  '));
+}

@@ -5,6 +5,10 @@ using System.IO;
 using System.Text;
 using PhoneGuitarTab.Tablatures.Models;
 using Color = PhoneGuitarTab.Tablatures.Models.Color;
+using SimpleJson;
+public class GP5JaonReader
+{
+}
 
 public class GP5Reader : GuitarProSongReader
 {
