@@ -6,6 +6,18 @@ namespace PhoneGuitarTab.Tablatures.Models
         public static int TripletFeelEighth = 2;
         public static int TripletFeelSixteenth = 3;
 
+        public float getLength() { return TimeSignature.Numerator * getTime(TimeSignature.Denominator); }
+
+        public float getTime(Duration duration)
+        {
+            float time = Duration.QuarterTime* 4.0f / duration.Value;
+            if (duration.IsDotted) {
+              time += time / 2;
+            } else if (duration.IsDoubleDotted) {
+              time += (time / 4) * 3;
+            }
+            return time * duration.Division.Times / duration.Division.Enters;
+        }
         public int Number { get; set; }
 
         public long Start;

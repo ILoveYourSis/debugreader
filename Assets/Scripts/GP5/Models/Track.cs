@@ -15,8 +15,12 @@ namespace PhoneGuitarTab.Tablatures.Models
         public String Name { get; set; }
         public List<Measure> Measures { get; set; }
         public List<GuitarString> Strings { get; set; }
+
+        public int channelId;
         public Channel Channel { get; set; }
         public Color Color { get; set; }
+
+        public string lyric;
         public Lyric Lyrics { get; set; }
 
         public Track()

@@ -14,6 +14,8 @@ namespace PhoneGuitarTab.Tablatures.Models
         public MeasureHeader Header { get; set; }
         public Track Track { get; set; }
 
+        public float start;
+
         public int Clef { get; set; }
         public int KeySignature { get; set; }
 
@@ -26,5 +28,7 @@ namespace PhoneGuitarTab.Tablatures.Models
             KeySignature = DefaultKeySignature;
             Beats = new List<Beat>();
         }
+
+        public Measure(){ }
     }
 }

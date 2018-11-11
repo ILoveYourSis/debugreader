@@ -8,7 +8,7 @@ public class GuitarProSongReader
 {
     protected BinaryReader _br;
 
-    protected void SkipBytes(int count)
+    protected void skip(int count)
     {
         _br.ReadBytes(count);
     }

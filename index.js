@@ -246,6 +246,7 @@ module.exports = buf => {
       track.channelId = channel.id;
     }
   }
+  //dumpmem ok
 
   const tracks = [];
   for (let number = 1; number <= trackCount; number++) {
@@ -282,6 +283,8 @@ module.exports = buf => {
     tracks.push(track);
   }
   skip(versionIndex == 0 ? 2 : 1);
+  //dumpMem Ok
+
 
   const readBeat = (start, measure, track, tempo, voiceIndex) => {
     const flags = readUnsignedByte();
