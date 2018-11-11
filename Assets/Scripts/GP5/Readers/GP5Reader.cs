@@ -60,7 +60,7 @@ public class GP5Reader : GuitarProSongReader
         int measures = readInt();
         int trackCount = readInt();
         Logger.Log("gp5", string.Format("measures:{0} trackCount:{1}", measures, trackCount));
-
+        //OK
         _br.Close();
     }
 
@@ -139,6 +139,7 @@ public class GP5Reader : GuitarProSongReader
             channel.bank = i == 9? "default percussion bank": "default bank";
             if(channel.Program < 0) channel.Program = 0;
             o[i] = channel;
+            //Logger.Log(TAG, string.Format("%{0} %{1}", i, channel.toString()));
             SkipBytes(2);
         }
         return o;

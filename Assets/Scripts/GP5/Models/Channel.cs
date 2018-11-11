@@ -38,6 +38,11 @@
             Tremolo = DefaultTremolo;
         }
 
+        public string toString()
+        {
+            return string.Format("program:{0} volume:{1} balance:{2} chorus:{3} reverb:{4} phaser:{5} tremolo:{6} bank:{7}", Program, Volume, Balance, Chorus, Reverb, Phaser, Tremolo, bank);
+        }
+
         public bool IsPercussionChannel
         {
             get { return (ChannelCode == DefaultPercussionChannel); }
