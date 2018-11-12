@@ -6,7 +6,7 @@ using System.IO;
 using SimpleJSON;
 
 public class DebugTest : MonoBehaviour {
-
+    const string tag = "gp5";
 	// Use this for initialization
 	void Start () {
 		//jo = new AndroidJavaObject("com.example.mylibrary.JarDebug");
@@ -20,14 +20,14 @@ public class DebugTest : MonoBehaviour {
 
     static void readgp5()
     {
-        string path = Application.dataPath + "/../output.json";
-        string text = File.ReadAllText(path);
-        JSONNode jo = JSON.Parse(text);
-        foreach(string k in jo.Keys)
-        {
-            Logger.Log("gp5", k);
-        }
-        //GP5Reader reader = new GP5Reader(path);
+        string path        = Application.dataPath + "/../test_output.json";
+        string text        = File.ReadAllText(path);
+        JSONNode jo        = JSON.Parse(text);
+        JSONArray measures = jo["tracks"][0]["measures"] as JSONArray;
+        JSONArray beats    = measures[0]["beats"] as JSONArray;
+        JSONArray voices   = beats[0]["voices"]as JSONArray;
+        JSONArray notes    = voices[0]["notes"] as JSONArray;
+        Logger.Log(tag, string.Format("str:{0} val:{1}", notes[0]["string"], notes[0]["value"]));
     }
 
     //static void test()
