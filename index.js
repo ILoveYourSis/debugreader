@@ -1106,6 +1106,8 @@ module.exports = buf => {
 
     chord.name = readStringByte(21);
 
+    console.log("Chord:", chord.name);
+
     skip(4);
 
     chord.frets[0] = readInt();
@@ -1113,7 +1115,7 @@ module.exports = buf => {
     for (let i = 0; i < 7; i++) {
 
       let fret = readInt();
-
+      console.log("fret:%s", fret);
       if (i < chord.strings.length) {
 
         chord.frets[i] = fret;
@@ -1124,7 +1126,8 @@ module.exports = buf => {
 
     skip(32);
 
-    if (chord.notes.length > 0) beat.chord = chord;
+    if (chord.frets.length > 0) beat.chord = chord;
+    // if (chord.notes.length > 0) beat.chord = chord;
 
   }
 
@@ -1441,7 +1444,6 @@ module.exports = buf => {
 
 
 if (!module.parent) {
-
   console.log(JSON.stringify(module.exports(require('fs').readFileSync('D:/Unity/debugreader/test.gp5')), null, '  '));
-
+  //module.exports(require('fs').readFileSync('D:/Unity/debugreader/test.gp5'));
 }
