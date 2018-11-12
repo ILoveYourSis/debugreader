@@ -40,7 +40,6 @@ public partial class FlatPlayPanel
             int beatsCount = beatsArr.Count;
             Transform BeatTemp = transform.Find("_beat");
             //init temp before copy
-            Transform StringTemp = BeatTemp.Find("0");
             BeatTemp.Find("_chord").GetComponent<Text>().text = "";
             //init ends
             Transform[] beatsT = copyChild(BeatTemp, beatsCount);
@@ -89,8 +88,8 @@ public partial class FlatPlayPanel
         void initEffect(Transform effectsMt, JSONObject effect)
         {
             bool hammer = effect["hammer"] == true;
-            bool slide = effect["slide"]   == true;
-            bool pull = effect["pull"]     == true;
+            bool slide  = effect["slide"]  == true;
+            bool pull   = effect["pull"]   == true;
             Transform smoothT = effectsMt.Find("_smooth");
             bool smooth = hammer || slide || pull;
             smoothT.gameObject.SetActive(smooth);

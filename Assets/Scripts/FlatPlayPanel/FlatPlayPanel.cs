@@ -45,16 +45,21 @@ public partial class FlatPlayPanel : MonoBehaviour
         List<Measure> measuresList = new List<Measure>(_measuresCount);
 
         Transform temp = _measures.GetChild(0);
+        //init before copy
+        temp.Find("_bk/_start").gameObject.SetActive(false);
+        temp.Find("_bk/_end").gameObject.SetActive(false);
         float posX = 0;
         Transform[] measturesT = copyChild(temp, _measuresCount);
         for(int i = 0; i < _measuresCount; ++i)
         {
-            Transform t = measturesT[i];
+            Transform t     = measturesT[i];
             t.localPosition = new Vector3(posX, 0, 0);
             Measure measure = t.gameObject.AddComponent<Measure>();
             measure.init(measures[i] as JSONObject);
             posX += measure.getWidth();
             measuresList.Add(measure);
+            if(i == 0) t.Find("_bk/_start").gameObject.SetActive(true);
+            if(i == _measuresCount - 1) t.Find("_bk/_end").gameObject.SetActive(true);
         }
 
         for(int i = 0; i < measuresList.Count; ++i)

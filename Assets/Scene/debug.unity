@@ -469,6 +469,16 @@ Prefab:
       propertyPath: m_Color.a
       value: 0.597
       objectReference: {fileID: 0}
+    - target: {fileID: 224317492329328052, guid: 670f3797faaa81a4d9ba198c1c4bdfd5,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224132605205104644, guid: 670f3797faaa81a4d9ba198c1c4bdfd5,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -146
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 670f3797faaa81a4d9ba198c1c4bdfd5, type: 2}
   m_IsPrefabParent: 0
