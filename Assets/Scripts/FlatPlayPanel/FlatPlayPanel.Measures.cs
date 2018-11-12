@@ -8,6 +8,7 @@ public partial class FlatPlayPanel
     class Measure: MonoBehaviour
     {
         const string tag = "gp5";
+        
 
         /// <summary>
         /// stringIdx 0-5
@@ -34,7 +35,7 @@ public partial class FlatPlayPanel
             return Y0 - INTERVAL * stringIdx;
         }
 
-        const int BEAT0_OFFSET       = 25;
+        const int BEAT0_OFFSET       = 50;
         const int BEAT_DEFAULT_WIDTH = 60;
 
 
@@ -72,24 +73,26 @@ public partial class FlatPlayPanel
                 Transform[] notesT = copyChild(beatT.Find("0"), notesArr.Count);
                 for(int noteIdx = 0; noteIdx < notesArr.Count; ++noteIdx)
                 {
-                    JSONObject note = notesArr[noteIdx] as JSONObject;
-                    int gStr  = note["string"];
-                    int value = note["value"];
-                    beatLog += string.Format("{0}:{1} ", gStr, value);
+                    JSONObject note  = notesArr[noteIdx] as JSONObject;
+                    int gStr         = note["string"];
+                    int value        = note["value"];
 
+                    beatLog += string.Format("{0}:{1} ", gStr, value);
                     Transform strT = notesT[noteIdx];
                     initEffect(strT.Find("_effects"), note["effect"] as JSONObject);
                     int gStrIdx = gStr - 1;
                     strT.localPosition = new Vector3(0, getStringPosY(gStrIdx), 0);
                     Text strText = strT.Find("_value").GetComponent<Text>();
-                    strText.text = value.ToString();
+                    bool isTiledNote = note["tiedNote"] == true;
+                    //TODO bind to former note
+                    strText.text = isTiledNote? string.Format("({0})", value):value.ToString();
                     if(currChordName != null)
                     {
                         if (markChord)
                         {
                             if (_name2Chord[currChordName].isInChord(gStrIdx, value))
                                 //strText.color = Color.green;
-                                strText.text = "x";
+                                strText.text = "X";
                             else
                             {
                                 //strText.color = Color.red;

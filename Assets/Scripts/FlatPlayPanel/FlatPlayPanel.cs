@@ -49,16 +49,16 @@ public partial class FlatPlayPanel : MonoBehaviour
     private void init(string jsonPath)
     {
         Transform measuresMt = transform.Find("_measuresMt");
-        string text         = File.ReadAllText(jsonPath);
-        _name2Chord         = new Dictionary<string, Chord>();
-        Chord[] chords = parseChords(text);
+        string text          = File.ReadAllText(jsonPath);
+        _name2Chord          = new Dictionary<string, Chord>();
+        Chord[] chords       = parseChords(text);
         for(int i = 0; i < chords.Length; ++i)
             if(!_name2Chord.ContainsKey(chords[i].chordName))_name2Chord.Add(chords[i].chordName, chords[i]);
 
-        JSONNode jo         = JSON.Parse(text); 
-        JSONArray tracks   = jo["tracks"] as JSONArray;
-        JSONArray measures = tracks[0]["measures"] as JSONArray;
-        int measuresCount  = measures.Count;
+        JSONNode jo                = JSON.Parse(text); 
+        JSONArray tracks           = jo["tracks"] as JSONArray;
+        JSONArray measures         = tracks[0]["measures"] as JSONArray;
+        int measuresCount          = measures.Count;
         List<Measure> measuresList = new List<Measure>(measuresCount);
 
         Transform temp = measuresMt.GetChild(0);
@@ -84,18 +84,18 @@ public partial class FlatPlayPanel : MonoBehaviour
     {
         if(!txt.StartsWith("Chord:")) return null;
         List<Chord> chordsList = new List<Chord>();
-        int tabStartIdx = txt.IndexOf('{');
-        string chordString = txt.Substring(0, tabStartIdx - 1);
-        string[] splits = chordString.Split('\n');
+        int tabStartIdx        = txt.IndexOf('{');
+        string chordString     = txt.Substring(0, tabStartIdx - 1);
+        string[] splits        = chordString.Split('\n');
         for(int i= 0; i< splits.Length; i += 8)
         {
-            Chord chord = new Chord();
+            Chord chord     = new Chord();
             chord.chordName = splits[i].Replace("Chord:", "").Trim();
-            chord.frets = new int[7];
+            chord.frets     = new int[7];
             for(int strIdx = 0; strIdx < 7; ++strIdx)
             {
                 string fret = splits[i + 1 + strIdx];
-                Logger.Log("gp5", fret);
+                //Logger.Log("gp5", fret);
                 chord.frets[strIdx] = int.Parse(fret.Replace("fret:", "").Trim());
             }
             chordsList.Add(chord);
