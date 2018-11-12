@@ -20,6 +20,8 @@ public partial class FlatPlayPanel
             return names[stringIdx];
         }
 
+        static string currChordName;
+        static bool markChord = false;
         /// <summary>
         /// strIdx 0-5;
         /// </summary>
@@ -32,8 +34,10 @@ public partial class FlatPlayPanel
             return Y0 - INTERVAL * stringIdx;
         }
 
-            const int BEAT0_OFFSET       = 25;
-            const int BEAT_DEFAULT_WIDTH = 60;
+        const int BEAT0_OFFSET       = 25;
+        const int BEAT_DEFAULT_WIDTH = 60;
+
+
         public void init(JSONObject measure)
         {
             JSONArray beatsArr = measure["beats"] as JSONArray;
@@ -58,8 +62,14 @@ public partial class FlatPlayPanel
 
                 string beatLog = "";
 
+                JSONObject chord = beat["chord"] as JSONObject;
+                if (chord != null)
+                {
+                    currChordName = chord["name"];
+                    beatT.Find("_chord").GetComponent<Text>().text = currChordName;
+                    markChord = true;
+                }
                 Transform[] notesT = copyChild(beatT.Find("0"), notesArr.Count);
-
                 for(int noteIdx = 0; noteIdx < notesArr.Count; ++noteIdx)
                 {
                     JSONObject note = notesArr[noteIdx] as JSONObject;
@@ -71,16 +81,27 @@ public partial class FlatPlayPanel
                     initEffect(strT.Find("_effects"), note["effect"] as JSONObject);
                     int gStrIdx = gStr - 1;
                     strT.localPosition = new Vector3(0, getStringPosY(gStrIdx), 0);
-                    strT.Find("_value").GetComponent<Text>().text = value.ToString();
+                    Text strText = strT.Find("_value").GetComponent<Text>();
+                    strText.text = value.ToString();
+                    if(currChordName != null)
+                    {
+                        if (markChord)
+                        {
+                            if (_name2Chord[currChordName].isInChord(gStrIdx, value))
+                                //strText.color = Color.green;
+                                strText.text = "x";
+                            else
+                            {
+                                //strText.color = Color.red;
+                                markChord = false;
+                            }
+                        }
+                    }
+                    
                 }
                 beatOffset += BEAT_DEFAULT_WIDTH;
                 beatLog += string.Format("duration:{0} ", duration);
-                JSONObject chord = beat["chord"] as JSONObject;
-                if (chord != null)
-                {
-                    beatLog += string.Format("chord:{0} ", chord["name"]);
-                    beatT.Find("_chord").GetComponent<Text>().text = chord["name"];
-                }
+   
                 Logger.Log(tag, beatLog);
             }
         }
